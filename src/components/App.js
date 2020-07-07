@@ -64,15 +64,30 @@ class App extends Component {
                         result={this.state.result}
                     ></Display>
                     <KeyboardRow>
-                        <Button color="dark">%</Button>
-                        <Button color="dark">+/-</Button>
+                        <Button
+                            color="dark"
+                            onButtonClick={this.changeExpression}
+                        >
+                            %
+                        </Button>
+                        <Button
+                            color="dark"
+                            onButtonClick={this.changeExpression}
+                        >
+                            +/-
+                        </Button>
                         <Button
                             color="dark"
                             onButtonClick={this.clearExpression}
                         >
                             C
                         </Button>
-                        <Button color="violet">/</Button>
+                        <Button
+                            color="violet"
+                            onButtonClick={this.changeExpression}
+                        >
+                            /
+                        </Button>
                     </KeyboardRow>
                     <KeyboardRow>
                         <Button onButtonClick={this.changeExpression}>7</Button>
@@ -108,8 +123,8 @@ class App extends Component {
                         </Button>
                     </KeyboardRow>
                     <KeyboardRow>
-                        <Button>0</Button>
-                        <Button>,</Button>
+                        <Button onButtonClick={this.changeExpression}>0</Button>
+                        <Button onButtonClick={this.changeExpression}>,</Button>
                         <Button
                             color="pink"
                             onButtonClick={this.evalueteExpression}

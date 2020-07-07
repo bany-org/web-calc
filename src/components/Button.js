@@ -5,7 +5,6 @@ const CalcButton = styled.div`
     width: 92px;
     height: 92px;
     background-image: linear-gradient(to right, #ffffff, #f4f4f4);
-
     font-family: Lato;
     font-size: 23px;
     font-weight: 300;
@@ -14,9 +13,10 @@ const CalcButton = styled.div`
     align-items: center;
     justify-content: center;
     flex: 1;
+    cursor: pointer;
 
     :hover {
-        cursor: pointer;
+        font-weight: 700;
     }
 
     ${(props) =>
