@@ -119,6 +119,31 @@ class App extends Component {
         });
     };
 
+    changeSign = () => {
+        console.log("change sign of currentInput");
+
+        if (this.state.currentInput === "") {
+            return;
+        }
+        let changed = this.state.currentInput;
+
+        if (this.state.currentInput.indexOf("-") === 0) {
+            console.log("changed", changed);
+            changed = changed.substring(1);
+        }
+
+        if (this.state.currentInput.indexOf("-") === -1) {
+            changed = "-".concat(this.state.currentInput);
+        }
+
+        this.setState({
+            expression: this.state.expression,
+            currentInput: changed,
+            operator: this.state.operator,
+            result: this.state.result,
+        });
+    };
+
     clearExpression = () => {
         this.setState({
             expression: "",
@@ -154,7 +179,7 @@ class App extends Component {
                         <Button color="dark" onButtonClick={this.addOperator}>
                             %
                         </Button>
-                        <Button color="dark" onButtonClick={this.addOperator}>
+                        <Button color="dark" onButtonClick={this.changeSign}>
                             +/-
                         </Button>
                         <Button
