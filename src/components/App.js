@@ -41,21 +41,30 @@ class App extends Component {
     }
 
     addNumber = (number) => {
-        console.log("addNumber");
+        console.log("addNumber", this.state);
+        if (this.state.currentInput === "0") {
+            return;
+        }
+
+        let result = this.state.result;
+
+        if (this.state.result !== "") {
+            result = "";
+        }
 
         if (this.state.operator) {
             this.setState({
                 expression: this.state.expression + this.state.operator,
                 currentInput: this.state.currentInput + number,
                 operator: "",
-                result: this.state.result,
+                result: result,
             });
         } else {
             this.setState({
                 expression: this.state.expression,
                 currentInput: this.state.currentInput + number,
                 operator: "",
-                result: this.state.result,
+                result: result,
             });
         }
         console.log("addNumber", this.state);
@@ -63,6 +72,10 @@ class App extends Component {
 
     addDecimal = (dot) => {
         console.log("add decimal", this.state);
+
+        if (this.state.currentInput === "") {
+            return;
+        }
 
         if (this.state.currentInput.indexOf(".") === -1) {
             this.setState({
