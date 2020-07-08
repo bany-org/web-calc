@@ -35,15 +35,63 @@ class App extends Component {
         this.state = {
             expression: "",
             result: "",
+            currentInput: "",
+            operator: "",
         };
     }
 
-    changeExpression = (value) => {
-        this.setState({ expression: this.state.expression + value });
+    addNumber = (number) => {
+        console.log("addNumber");
+
+        this.setState({
+            ...this.state,
+            expression: this.state.expression + number,
+            currentInput: this.state.currentInput + number,
+            operator: "",
+        });
+    };
+
+    addDecimal = (dot) => {
+        console.log("add decimal", this.state);
+
+        if (this.state.currentInput.indexOf(".") === -1) {
+            this.setState({
+                ...this.state,
+                expression: this.state.expression + ".",
+                currentInput: this.state.currentInput + ".",
+            });
+        }
+    };
+
+    addOperator = (operator) => {
+        console.log("add operator");
+
+        if (this.state.operator === operator) {
+            return;
+        }
+
+        if (this.state.operator) {
+            const tochange = this.state.expression.slice(0, -3);
+
+            this.setState({
+                ...this.state,
+                expression: tochange + operator,
+                operator: operator,
+                currentInput: "",
+            });
+        }
+
+        this.setState({
+            ...this.state,
+            expression: this.state.expression + operator,
+            operator: operator,
+            currentInput: "",
+        });
     };
 
     clearExpression = () => {
         this.setState({
+            ...this.state,
             expression: "",
             result: "",
         });
@@ -51,6 +99,9 @@ class App extends Component {
 
     evalueteExpression = () => {
         this.setState({
+            expression: this.state.expression,
+            operator: "",
+            currentInput: "",
             result: evaluate(this.state.expression),
         });
     };
@@ -64,16 +115,10 @@ class App extends Component {
                         result={this.state.result}
                     ></Display>
                     <KeyboardRow>
-                        <Button
-                            color="dark"
-                            onButtonClick={this.changeExpression}
-                        >
+                        <Button color="dark" onButtonClick={this.addOperator}>
                             %
                         </Button>
-                        <Button
-                            color="dark"
-                            onButtonClick={this.changeExpression}
-                        >
+                        <Button color="dark" onButtonClick={this.addOperator}>
                             +/-
                         </Button>
                         <Button
@@ -82,49 +127,40 @@ class App extends Component {
                         >
                             C
                         </Button>
-                        <Button
-                            color="violet"
-                            onButtonClick={this.changeExpression}
-                        >
-                            /
+                        <Button color="violet" onButtonClick={this.addOperator}>
+                            {" / "}
                         </Button>
                     </KeyboardRow>
                     <KeyboardRow>
-                        <Button onButtonClick={this.changeExpression}>7</Button>
-                        <Button onButtonClick={this.changeExpression}>8</Button>
-                        <Button onButtonClick={this.changeExpression}>9</Button>
+                        <Button onButtonClick={this.addNumber}>7</Button>
+                        <Button onButtonClick={this.addNumber}>8</Button>
+                        <Button onButtonClick={this.addNumber}>9</Button>
                         <Button
-                            onButtonClick={this.changeExpression}
+                            onButtonClick={() => this.addOperator(" * ")}
                             color="violet"
                         >
-                            *
+                            x
                         </Button>
                     </KeyboardRow>
                     <KeyboardRow>
-                        <Button onButtonClick={this.changeExpression}>4</Button>
-                        <Button onButtonClick={this.changeExpression}>5</Button>
-                        <Button onButtonClick={this.changeExpression}>6</Button>
-                        <Button
-                            onButtonClick={this.changeExpression}
-                            color="violet"
-                        >
-                            -
+                        <Button onButtonClick={this.addNumber}>4</Button>
+                        <Button onButtonClick={this.addNumber}>5</Button>
+                        <Button onButtonClick={this.addNumber}>6</Button>
+                        <Button onButtonClick={this.addOperator} color="violet">
+                            {" - "}
                         </Button>
                     </KeyboardRow>
                     <KeyboardRow>
-                        <Button onButtonClick={this.changeExpression}>1</Button>
-                        <Button onButtonClick={this.changeExpression}>2</Button>
-                        <Button onButtonClick={this.changeExpression}>3</Button>
-                        <Button
-                            color="violet"
-                            onButtonClick={this.changeExpression}
-                        >
-                            +
+                        <Button onButtonClick={this.addNumber}>1</Button>
+                        <Button onButtonClick={this.addNumber}>2</Button>
+                        <Button onButtonClick={this.addNumber}>3</Button>
+                        <Button color="violet" onButtonClick={this.addOperator}>
+                            {" + "}
                         </Button>
                     </KeyboardRow>
                     <KeyboardRow>
-                        <Button onButtonClick={this.changeExpression}>0</Button>
-                        <Button onButtonClick={this.changeExpression}>,</Button>
+                        <Button onButtonClick={this.addNumber}>0</Button>
+                        <Button onButtonClick={this.addDecimal}>,</Button>
                         <Button
                             color="pink"
                             onButtonClick={this.evalueteExpression}
