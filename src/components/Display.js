@@ -30,11 +30,13 @@ const ResultRow = styled.div`
     padding-right: 28px;
 `;
 
-const Display = (props) => {
+const Display = ({ values }) => {
     return (
         <DisplayArea>
-            <ExpressionRow>{props.expression}</ExpressionRow>
-            <ResultRow>{props.result}</ResultRow>
+            <ExpressionRow>
+                {values.expression + values.operator + values.currentInput}
+            </ExpressionRow>
+            <ResultRow>{values.result}</ResultRow>
         </DisplayArea>
     );
 };

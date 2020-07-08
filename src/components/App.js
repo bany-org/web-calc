@@ -34,21 +34,31 @@ class App extends Component {
 
         this.state = {
             expression: "",
-            result: "",
             currentInput: "",
             operator: "",
+            result: "",
         };
     }
 
     addNumber = (number) => {
         console.log("addNumber");
 
-        this.setState({
-            ...this.state,
-            expression: this.state.expression + number,
-            currentInput: this.state.currentInput + number,
-            operator: "",
-        });
+        if (this.state.operator) {
+            this.setState({
+                expression: this.state.expression + this.state.operator,
+                currentInput: this.state.currentInput + number,
+                operator: "",
+                result: this.state.result,
+            });
+        } else {
+            this.setState({
+                expression: this.state.expression,
+                currentInput: this.state.currentInput + number,
+                operator: "",
+                result: this.state.result,
+            });
+        }
+        console.log("addNumber", this.state);
     };
 
     addDecimal = (dot) => {
@@ -56,53 +66,69 @@ class App extends Component {
 
         if (this.state.currentInput.indexOf(".") === -1) {
             this.setState({
-                ...this.state,
-                expression: this.state.expression + ".",
+                expression: this.state.expression,
                 currentInput: this.state.currentInput + ".",
+                operator: this.state.operator,
+                result: this.state.result,
             });
         }
     };
 
     addOperator = (operator) => {
-        console.log("add operator");
+        console.log("add operator", this.state);
+
+        if (operator === "+/-" || operator === "%") {
+            return;
+        }
 
         if (this.state.operator === operator) {
             return;
         }
 
-        if (this.state.operator) {
-            const tochange = this.state.expression.slice(0, -3);
+        if (this.state.expression === "" && this.state.currentInput === "") {
+            return;
+        }
 
+        if (this.state.operator) {
             this.setState({
-                ...this.state,
-                expression: tochange + operator,
-                operator: operator,
+                expression: this.state.expression,
                 currentInput: "",
+                operator: operator,
+                result: this.state.result,
             });
         }
 
         this.setState({
-            ...this.state,
-            expression: this.state.expression + operator,
-            operator: operator,
+            expression: this.state.expression + this.state.currentInput,
             currentInput: "",
+            operator: operator,
+            result: this.state.result,
         });
     };
 
     clearExpression = () => {
         this.setState({
-            ...this.state,
             expression: "",
+            currentInput: "",
+            operator: "",
             result: "",
         });
     };
 
     evalueteExpression = () => {
+        if (this.state.currentInput === "") {
+            return;
+        }
+
         this.setState({
-            expression: this.state.expression,
+            expression: "",
             operator: "",
             currentInput: "",
-            result: evaluate(this.state.expression),
+            result: evaluate(
+                this.state.expression +
+                    this.state.operator +
+                    this.state.currentInput
+            ),
         });
     };
 
@@ -110,10 +136,7 @@ class App extends Component {
         return (
             <CalculatorWrapper>
                 <Calculator>
-                    <Display
-                        expression={this.state.expression}
-                        result={this.state.result}
-                    ></Display>
+                    <Display values={this.state}></Display>
                     <KeyboardRow>
                         <Button color="dark" onButtonClick={this.addOperator}>
                             %
