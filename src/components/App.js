@@ -98,7 +98,11 @@ class App extends Component {
             return;
         }
 
-        if (this.state.expression === "" && this.state.currentInput === "") {
+        if (
+            this.state.expression === "" &&
+            this.state.currentInput === "" &&
+            this.state.result === ""
+        ) {
             return;
         }
 
@@ -109,14 +113,18 @@ class App extends Component {
                 operator: operator,
                 result: this.state.result,
             });
-        }
 
-        this.setState({
-            expression: this.state.expression + this.state.currentInput,
-            currentInput: "",
-            operator: operator,
-            result: this.state.result,
-        });
+            return;
+        } else {
+            this.setState({
+                expression:
+                    this.state.result ||
+                    this.state.expression + this.state.currentInput,
+                currentInput: "",
+                operator: operator,
+                result: this.state.result,
+            });
+        }
     };
 
     changeSign = () => {
