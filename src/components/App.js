@@ -46,6 +46,10 @@ class App extends Component {
             return;
         }
 
+        if (this.state.currentInput.length > 9) {
+            return;
+        }
+
         let result = this.state.result;
 
         if (this.state.result !== "") {
@@ -67,7 +71,6 @@ class App extends Component {
                 result: result,
             });
         }
-        console.log("addNumber", this.state);
     };
 
     addDecimal = (dot) => {
@@ -122,7 +125,7 @@ class App extends Component {
                     this.state.expression + this.state.currentInput,
                 currentInput: "",
                 operator: operator,
-                result: this.state.result,
+                result: "",
             });
         }
     };
@@ -170,10 +173,12 @@ class App extends Component {
             expression: "",
             operator: "",
             currentInput: "",
-            result: evaluate(
-                this.state.expression +
-                    this.state.operator +
-                    this.state.currentInput
+            result: parseFloat(
+                evaluate(
+                    this.state.expression +
+                        this.state.operator +
+                        this.state.currentInput
+                ).toFixed(6)
             ),
         });
     };
