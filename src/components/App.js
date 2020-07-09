@@ -43,11 +43,21 @@ class App extends Component {
     }
 
     addNumber = (number) => {
-        console.log("addNumber", this.state);
+        // prevent too long input
+        if (
+            this.state.expression.toString().length +
+                this.state.currentInput.toString().length >=
+            49
+        ) {
+            return;
+        }
+
+        // prevent adding 0 before number without dot
         if (this.state.currentInput === "0") {
             return;
         }
 
+        // prevent too long input
         if (this.state.currentInput.length > 9) {
             return;
         }
@@ -76,9 +86,15 @@ class App extends Component {
     };
 
     addDecimal = (dot) => {
-        console.log("add decimal", this.state);
-
         if (this.state.currentInput === "") {
+            return;
+        }
+
+        if (
+            this.state.expression.toString().length +
+                this.state.currentInput.toString().length >=
+            49
+        ) {
             return;
         }
 
@@ -93,7 +109,13 @@ class App extends Component {
     };
 
     addOperator = (operator) => {
-        console.log("add operator", this.state);
+        if (
+            this.state.expression.toString().length +
+                this.state.currentInput.toString().length >=
+            49
+        ) {
+            return;
+        }
 
         if (operator === "+/-" || operator === "%") {
             return;
@@ -133,8 +155,6 @@ class App extends Component {
     };
 
     changeSign = () => {
-        console.log("change sign of currentInput");
-
         if (this.state.currentInput === "") {
             return;
         }

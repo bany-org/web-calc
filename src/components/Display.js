@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const DisplayArea = styled.div`
     width: 100%;
@@ -35,7 +35,7 @@ const Display = ({ values }) => {
     let val = values.result;
     console.log("result", val);
 
-    if (val.toString().length > 9) {
+    if (val > 999999999 || val.toString().length > 10) {
         val = val.toExponential(4);
         console.log("val po toExp,", val, val.length, val.toString().length);
     }
