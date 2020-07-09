@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 const CalcButton = styled.div`
     width: 92px;
-    height: 92px;
+    max-height: 92px;
     background-image: linear-gradient(to right, #ffffff, #f4f4f4);
     font-family: Lato;
     font-size: 23px;

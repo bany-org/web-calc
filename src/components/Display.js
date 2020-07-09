@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const DisplayArea = styled.div`
     width: 100%;
-    height: 100%;
+    height: 140px;
     background-color: #212121;
     color: #ffffff;
     display: flex;
@@ -11,6 +11,7 @@ const DisplayArea = styled.div`
 `;
 
 const ExpressionRow = styled.div`
+    height: 100%;
     font-family: Lato;
     font-size: 18px;
     letter-spacing: normal;

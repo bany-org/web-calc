@@ -28,6 +28,8 @@ const Calculator = styled.div`
 
 const KeyboardRow = styled.div`
     display: flex;
+    height: 100%;
+    margin: 0;
 `;
 
 class App extends Component {
