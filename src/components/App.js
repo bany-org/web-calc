@@ -17,8 +17,10 @@ const CalculatorWrapper = styled.div`
 const Calculator = styled.div`
     display: flex;
     flex-direction: column;
-    width: 368px;
-    height: 600px;
+    height: 100vh;
+    width: 100vw;
+    max-width: 368px;
+    max-height: 600px;
     border-radius: 5px;
     background-color: #ffffff;
     overflow: hidden;

@@ -2,8 +2,8 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 const DisplayArea = styled.div`
-    width: 368px;
-    height: 140px;
+    width: 100%;
+    height: 100%;
     background-color: #212121;
     color: #ffffff;
     display: flex;
@@ -33,12 +33,11 @@ const ResultRow = styled.div`
 
 const Display = ({ values }) => {
     let val = values.result;
-    console.log("val", val);
+    console.log("result", val);
 
     if (val.toString().length > 9) {
-        console.log("val >");
-
-        val = val.toExponential();
+        val = val.toExponential(4);
+        console.log("val po toExp,", val, val.length, val.toString().length);
     }
 
     return (
