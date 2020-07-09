@@ -5,6 +5,26 @@ import { evaluate } from "mathjs";
 import Display from "./Display";
 import Button from "./Button";
 
+import clearSound from "../assets/tadadum.mp3";
+import buttonSound from "../assets/pik.mp3";
+import evalSound from "../assets/bum.mp3";
+
+const clearAudio = new Audio(clearSound);
+const buttonAudio = new Audio(buttonSound);
+const evalAudio = new Audio(evalSound);
+
+const startClearSound = () => {
+    clearAudio.play();
+};
+
+const startButtonSound = () => {
+    buttonAudio.play();
+};
+
+const startEvalSound = () => {
+    evalAudio.play();
+};
+
 const CalculatorWrapper = styled.div`
     display: flex;
     justify-content: center;
@@ -135,6 +155,8 @@ class App extends Component {
             return;
         }
 
+        startButtonSound();
+
         if (this.state.operator) {
             this.setState({
                 expression: this.state.expression,
@@ -180,6 +202,8 @@ class App extends Component {
     };
 
     clearExpression = () => {
+        startClearSound();
+
         this.setState({
             expression: "",
             currentInput: "",
@@ -192,6 +216,8 @@ class App extends Component {
         if (this.state.currentInput === "") {
             return;
         }
+
+        startEvalSound();
 
         this.setState({
             expression: "",
