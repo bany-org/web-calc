@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { evaluate } from "mathjs";
 
 import Display from "./Display";
-import Button from "./Button";
+import Keyboard from "./Keyboard";
 
 import clearSound from "../assets/tadadum.mp3";
 import buttonSound from "../assets/pik.mp3";
@@ -46,12 +46,6 @@ const Calculator = styled.div`
     overflow: hidden;
 `;
 
-const KeyboardRow = styled.div`
-    display: flex;
-    height: 100%;
-    margin: 0;
-`;
-
 class App extends Component {
     constructor(props) {
         super(props);
@@ -64,13 +58,19 @@ class App extends Component {
         };
     }
 
+    isTotalInputTooLong = () => {
+        const expressionLength = this.state.expression.toString().length;
+        const currentInputLength = this.state.currentInput.toString().length;
+
+        if (expressionLength + currentInputLength >= 49) {
+            return true;
+        }
+
+        return false;
+    };
+
     addNumber = (number) => {
-        // prevent too long input
-        if (
-            this.state.expression.toString().length +
-                this.state.currentInput.toString().length >=
-            49
-        ) {
+        if (this.isTotalInputTooLong()) {
             return;
         }
 
@@ -79,15 +79,9 @@ class App extends Component {
             return;
         }
 
-        // prevent too long input
+        // prevent too long current input
         if (this.state.currentInput.length > 9) {
             return;
-        }
-
-        let result = this.state.result;
-
-        if (this.state.result !== "") {
-            result = "";
         }
 
         if (this.state.operator) {
@@ -95,56 +89,43 @@ class App extends Component {
                 expression: this.state.expression + this.state.operator,
                 currentInput: this.state.currentInput + number,
                 operator: "",
-                result: result,
+                result: "",
             });
         } else {
             this.setState({
                 expression: this.state.expression,
                 currentInput: this.state.currentInput + number,
                 operator: "",
-                result: result,
+                result: "",
             });
         }
     };
 
-    addDecimal = (dot) => {
+    addDecimal = () => {
+        if (this.isTotalInputTooLong()) {
+            return;
+        }
+
+        // prevent adding dot without number
         if (this.state.currentInput === "") {
             return;
         }
 
-        if (
-            this.state.expression.toString().length +
-                this.state.currentInput.toString().length >=
-            49
-        ) {
-            return;
-        }
-
+        // add decimal only if no decimal in current expression
         if (this.state.currentInput.indexOf(".") === -1) {
             this.setState({
-                expression: this.state.expression,
+                ...this.state,
                 currentInput: this.state.currentInput + ".",
-                operator: this.state.operator,
-                result: this.state.result,
             });
         }
     };
 
     addOperator = (operator) => {
-        // prevent too long input
-        if (
-            this.state.expression.toString().length +
-                this.state.currentInput.toString().length >=
-            49
-        ) {
+        if (this.isTotalInputTooLong()) {
             return;
         }
 
-        // prevent
-        // if (this.state.operator === operator) {
-        //     return;
-        // }
-
+        // prevent adding operator without any number
         if (
             this.state.expression === "" &&
             this.state.currentInput === "" &&
@@ -162,8 +143,6 @@ class App extends Component {
                 operator: operator,
                 result: this.state.result,
             });
-
-            return;
         } else {
             this.setState({
                 expression:
@@ -177,25 +156,22 @@ class App extends Component {
     };
 
     changeSign = () => {
+        // prevent changing sign without number
         if (this.state.currentInput === "") {
             return;
         }
+
         let changed = this.state.currentInput;
 
         if (this.state.currentInput.indexOf("-") === 0) {
-            console.log("changed", changed);
             changed = changed.substring(1);
-        }
-
-        if (this.state.currentInput.indexOf("-") === -1) {
+        } else {
             changed = "-".concat(this.state.currentInput);
         }
 
         this.setState({
-            expression: this.state.expression,
+            ...this.state,
             currentInput: changed,
-            operator: this.state.operator,
-            result: this.state.result,
         });
     };
 
@@ -211,8 +187,6 @@ class App extends Component {
     };
 
     calcPercentage = () => {
-        console.log("%:", this.state);
-
         this.setState({
             ...this.state,
             currentInput: this.state.currentInput / 100,
@@ -220,6 +194,7 @@ class App extends Component {
     };
 
     evalueteExpression = () => {
+        // prevent eval if operator is last  element in expression - mathjs rule
         if (this.state.currentInput === "") {
             return;
         }
@@ -245,63 +220,15 @@ class App extends Component {
             <CalculatorWrapper>
                 <Calculator>
                     <Display values={this.state}></Display>
-                    <KeyboardRow>
-                        <Button
-                            color="dark"
-                            onButtonClick={this.calcPercentage}
-                        >
-                            %
-                        </Button>
-                        <Button color="dark" onButtonClick={this.changeSign}>
-                            +/-
-                        </Button>
-                        <Button
-                            color="dark"
-                            onButtonClick={this.clearExpression}
-                        >
-                            C
-                        </Button>
-                        <Button color="violet" onButtonClick={this.addOperator}>
-                            {" / "}
-                        </Button>
-                    </KeyboardRow>
-                    <KeyboardRow>
-                        <Button onButtonClick={this.addNumber}>7</Button>
-                        <Button onButtonClick={this.addNumber}>8</Button>
-                        <Button onButtonClick={this.addNumber}>9</Button>
-                        <Button
-                            onButtonClick={() => this.addOperator(" * ")}
-                            color="violet"
-                        >
-                            x
-                        </Button>
-                    </KeyboardRow>
-                    <KeyboardRow>
-                        <Button onButtonClick={this.addNumber}>4</Button>
-                        <Button onButtonClick={this.addNumber}>5</Button>
-                        <Button onButtonClick={this.addNumber}>6</Button>
-                        <Button onButtonClick={this.addOperator} color="violet">
-                            {" - "}
-                        </Button>
-                    </KeyboardRow>
-                    <KeyboardRow>
-                        <Button onButtonClick={this.addNumber}>1</Button>
-                        <Button onButtonClick={this.addNumber}>2</Button>
-                        <Button onButtonClick={this.addNumber}>3</Button>
-                        <Button color="violet" onButtonClick={this.addOperator}>
-                            {" + "}
-                        </Button>
-                    </KeyboardRow>
-                    <KeyboardRow>
-                        <Button onButtonClick={this.addNumber}>0</Button>
-                        <Button onButtonClick={this.addDecimal}>,</Button>
-                        <Button
-                            color="pink"
-                            onButtonClick={this.evalueteExpression}
-                        >
-                            =
-                        </Button>
-                    </KeyboardRow>
+                    <Keyboard
+                        calcPercentage={this.calcPercentage}
+                        changeSign={this.changeSign}
+                        clearExpression={this.clearExpression}
+                        addOperator={this.addOperator}
+                        addNumber={this.addNumber}
+                        addDecimal={this.addDecimal}
+                        evalueteExpression={this.evalueteExpression}
+                    />
                 </Calculator>
             </CalculatorWrapper>
         );
