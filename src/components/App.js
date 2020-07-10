@@ -69,7 +69,7 @@ class App extends Component {
         return false;
     };
 
-    addNumber = (number) => {
+    addNumberToExpression = (number) => {
         if (this.isTotalInputTooLong()) {
             return;
         }
@@ -101,7 +101,7 @@ class App extends Component {
         }
     };
 
-    addDecimal = () => {
+    addDecimalToExpression = () => {
         if (this.isTotalInputTooLong()) {
             return;
         }
@@ -120,7 +120,7 @@ class App extends Component {
         }
     };
 
-    addOperator = (operator) => {
+    addOperatorToExpression = (operator) => {
         if (this.isTotalInputTooLong()) {
             return;
         }
@@ -155,7 +155,7 @@ class App extends Component {
         }
     };
 
-    changeSign = () => {
+    changeCurrentInputSign = () => {
         // prevent changing sign without number
         if (this.state.currentInput === "") {
             return;
@@ -163,7 +163,7 @@ class App extends Component {
 
         let changed = this.state.currentInput;
 
-        if (this.state.currentInput.indexOf("-") === 0) {
+        if (this.state.currentInput.toString().indexOf("-") === 0) {
             changed = changed.substring(1);
         } else {
             changed = "-".concat(this.state.currentInput);
@@ -175,6 +175,13 @@ class App extends Component {
         });
     };
 
+    convertPercentageToNumber = () => {
+        this.setState({
+            ...this.state,
+            currentInput: this.state.currentInput / 100,
+        });
+    };
+
     clearExpression = () => {
         startClearSound();
 
@@ -183,13 +190,6 @@ class App extends Component {
             currentInput: "",
             operator: "",
             result: "",
-        });
-    };
-
-    calcPercentage = () => {
-        this.setState({
-            ...this.state,
-            currentInput: this.state.currentInput / 100,
         });
     };
 
@@ -221,12 +221,14 @@ class App extends Component {
                 <Calculator>
                     <Display values={this.state}></Display>
                     <Keyboard
-                        calcPercentage={this.calcPercentage}
-                        changeSign={this.changeSign}
+                        convertPercentageToNumber={
+                            this.convertPercentageToNumber
+                        }
+                        changeCurrentInputSign={this.changeCurrentInputSign}
                         clearExpression={this.clearExpression}
-                        addOperator={this.addOperator}
-                        addNumber={this.addNumber}
-                        addDecimal={this.addDecimal}
+                        addOperatorToExpression={this.addOperatorToExpression}
+                        addNumberToExpression={this.addNumberToExpression}
+                        addDecimalToExpression={this.addDecimalToExpression}
                         evalueteExpression={this.evalueteExpression}
                     />
                 </Calculator>

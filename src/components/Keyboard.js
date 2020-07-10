@@ -10,57 +10,60 @@ const KeyboardRow = styled.div`
 `;
 
 const Keyboard = ({
-    calcPercentage,
+    convertPercentageToNumber,
     clearExpression,
-    changeSign,
-    addDecimal,
-    addNumber,
-    addOperator,
+    changeCurrentInputSign,
+    addDecimalToExpression,
+    addNumberToExpression,
+    addOperatorToExpression,
     evalueteExpression,
 }) => {
     return (
         <>
             <KeyboardRow>
-                <Button color="dark" onButtonClick={calcPercentage}>
+                <Button color="dark" onButtonClick={convertPercentageToNumber}>
                     %
                 </Button>
-                <Button color="dark" onButtonClick={changeSign}>
+                <Button color="dark" onButtonClick={changeCurrentInputSign}>
                     +/-
                 </Button>
                 <Button color="dark" onButtonClick={clearExpression}>
                     C
                 </Button>
-                <Button color="violet" onButtonClick={addOperator}>
+                <Button color="violet" onButtonClick={addOperatorToExpression}>
                     {" / "}
                 </Button>
             </KeyboardRow>
             <KeyboardRow>
-                <Button onButtonClick={addNumber}>7</Button>
-                <Button onButtonClick={addNumber}>8</Button>
-                <Button onButtonClick={addNumber}>9</Button>
-                <Button onButtonClick={() => addOperator(" * ")} color="violet">
+                <Button onButtonClick={addNumberToExpression}>7</Button>
+                <Button onButtonClick={addNumberToExpression}>8</Button>
+                <Button onButtonClick={addNumberToExpression}>9</Button>
+                <Button
+                    onButtonClick={() => addOperatorToExpression(" * ")}
+                    color="violet"
+                >
                     x
                 </Button>
             </KeyboardRow>
             <KeyboardRow>
-                <Button onButtonClick={addNumber}>4</Button>
-                <Button onButtonClick={addNumber}>5</Button>
-                <Button onButtonClick={addNumber}>6</Button>
-                <Button onButtonClick={addOperator} color="violet">
+                <Button onButtonClick={addNumberToExpression}>4</Button>
+                <Button onButtonClick={addNumberToExpression}>5</Button>
+                <Button onButtonClick={addNumberToExpression}>6</Button>
+                <Button onButtonClick={addOperatorToExpression} color="violet">
                     {" - "}
                 </Button>
             </KeyboardRow>
             <KeyboardRow>
-                <Button onButtonClick={addNumber}>1</Button>
-                <Button onButtonClick={addNumber}>2</Button>
-                <Button onButtonClick={addNumber}>3</Button>
-                <Button color="violet" onButtonClick={addOperator}>
+                <Button onButtonClick={addNumberToExpression}>1</Button>
+                <Button onButtonClick={addNumberToExpression}>2</Button>
+                <Button onButtonClick={addNumberToExpression}>3</Button>
+                <Button color="violet" onButtonClick={addOperatorToExpression}>
                     {" + "}
                 </Button>
             </KeyboardRow>
             <KeyboardRow>
-                <Button onButtonClick={addNumber}>0</Button>
-                <Button onButtonClick={addDecimal}>,</Button>
+                <Button onButtonClick={addNumberToExpression}>0</Button>
+                <Button onButtonClick={addDecimalToExpression}>,</Button>
                 <Button color="pink" onButtonClick={evalueteExpression}>
                     =
                 </Button>
