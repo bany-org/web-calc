@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ae832fe02946296c66e31f7e0eda4852",
+    "revision": "9ed440b883b09e360bc5f63b772b7c90",
     "url": "/web-calc/index.html"
   },
   {
-    "revision": "e42b1b0ac76896054f15",
+    "revision": "fb61204a982941f5a0eb",
     "url": "/web-calc/static/css/main.cba5cd10.chunk.css"
   },
   {
-    "revision": "3bbd196bc5e959e18ee3",
-    "url": "/web-calc/static/js/2.8413889c.chunk.js"
+    "revision": "738fc62ef5c7b68cc8b3",
+    "url": "/web-calc/static/js/2.54af94ae.chunk.js"
   },
   {
     "revision": "01d48c74ee01ebacc5c6be7cdbbb2df8",
-    "url": "/web-calc/static/js/2.8413889c.chunk.js.LICENSE.txt"
+    "url": "/web-calc/static/js/2.54af94ae.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "e42b1b0ac76896054f15",
-    "url": "/web-calc/static/js/main.a68d0c28.chunk.js"
+    "revision": "fb61204a982941f5a0eb",
+    "url": "/web-calc/static/js/main.8ee60d4b.chunk.js"
   },
   {
     "revision": "55726ab8b5973768fb16",
