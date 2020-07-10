@@ -131,6 +131,7 @@ class App extends Component {
     };
 
     addOperator = (operator) => {
+        // prevent too long input
         if (
             this.state.expression.toString().length +
                 this.state.currentInput.toString().length >=
@@ -139,13 +140,10 @@ class App extends Component {
             return;
         }
 
-        if (operator === "+/-" || operator === "%") {
-            return;
-        }
-
-        if (this.state.operator === operator) {
-            return;
-        }
+        // prevent
+        // if (this.state.operator === operator) {
+        //     return;
+        // }
 
         if (
             this.state.expression === "" &&
@@ -212,6 +210,15 @@ class App extends Component {
         });
     };
 
+    calcPercentage = () => {
+        console.log("%:", this.state);
+
+        this.setState({
+            ...this.state,
+            currentInput: this.state.currentInput / 100,
+        });
+    };
+
     evalueteExpression = () => {
         if (this.state.currentInput === "") {
             return;
@@ -239,7 +246,10 @@ class App extends Component {
                 <Calculator>
                     <Display values={this.state}></Display>
                     <KeyboardRow>
-                        <Button color="dark" onButtonClick={this.addOperator}>
+                        <Button
+                            color="dark"
+                            onButtonClick={this.calcPercentage}
+                        >
                             %
                         </Button>
                         <Button color="dark" onButtonClick={this.changeSign}>

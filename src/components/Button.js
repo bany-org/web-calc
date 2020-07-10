@@ -25,6 +25,7 @@ const CalcButton = styled.div`
 
     :hover {
         font-weight: 700;
+        border: 1px solid #cccccc;   
     }
 
     ${(props) =>
