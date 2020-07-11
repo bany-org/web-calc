@@ -5,24 +5,24 @@ import { evaluate } from "mathjs";
 import Display from "./Display";
 import Keyboard from "./Keyboard";
 
-import clearSound from "../assets/tadadum.mp3";
-import buttonSound from "../assets/pik.mp3";
-import evalSound from "../assets/bum.mp3";
+import clearSound from "../assets/clear.mp3";
+import operationSound from "../assets/operation.mp3";
+import evaluateSound from "../assets/evaluate.mp3";
 
 const clearAudio = new Audio(clearSound);
-const buttonAudio = new Audio(buttonSound);
-const evalAudio = new Audio(evalSound);
+const operationAudio = new Audio(operationSound);
+const evaluateAudio = new Audio(evaluateSound);
 
 const startClearSound = () => {
     clearAudio.play();
 };
 
-const startButtonSound = () => {
-    buttonAudio.play();
+const startOperationSound = () => {
+    operationAudio.play();
 };
 
-const startEvalSound = () => {
-    evalAudio.play();
+const startEvaluateSound = () => {
+    evaluateAudio.play();
 };
 
 const CalculatorWrapper = styled.div`
@@ -134,7 +134,7 @@ class App extends Component {
             return;
         }
 
-        startButtonSound();
+        startOperationSound();
 
         if (this.state.operator) {
             this.setState({
@@ -199,7 +199,7 @@ class App extends Component {
             return;
         }
 
-        startEvalSound();
+        startEvaluateSound();
 
         this.setState({
             expression: "",
