@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "efacc6030bd16c4f1aa90912808a732f",
+    "revision": "65a5169f2409a8b2680498ade8d9afe6",
     "url": "/web-calc/index.html"
   },
   {
-    "revision": "fee05e8bdd7cbc369ef0",
+    "revision": "74bc928b7b1230b1b809",
     "url": "/web-calc/static/css/main.cba5cd10.chunk.css"
   },
   {
@@ -16,23 +16,23 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/web-calc/static/js/2.54af94ae.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "fee05e8bdd7cbc369ef0",
-    "url": "/web-calc/static/js/main.a35228e5.chunk.js"
+    "revision": "74bc928b7b1230b1b809",
+    "url": "/web-calc/static/js/main.8403d3a7.chunk.js"
   },
   {
     "revision": "55726ab8b5973768fb16",
     "url": "/web-calc/static/js/runtime-main.1187d757.js"
   },
   {
+    "revision": "8304135c4f5c9d4895478e71b8d70cca",
+    "url": "/web-calc/static/media/clear.8304135c.mp3"
+  },
+  {
     "revision": "e42ea5edcd8ca2ebd71ffa630584a323",
-    "url": "/web-calc/static/media/bum.e42ea5ed.mp3"
+    "url": "/web-calc/static/media/evaluate.e42ea5ed.mp3"
   },
   {
     "revision": "9f1dbdbc7e05f92b9fe78b38e6f462f2",
-    "url": "/web-calc/static/media/pik.9f1dbdbc.mp3"
-  },
-  {
-    "revision": "8304135c4f5c9d4895478e71b8d70cca",
-    "url": "/web-calc/static/media/tadadum.8304135c.mp3"
+    "url": "/web-calc/static/media/operation.9f1dbdbc.mp3"
   }
 ]);
